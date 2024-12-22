@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package websub;
+
+option go_package = "github.com/pipexlul/conceal-bot-go-websub/generated";
+
+service WebSubHub {
+  rpc Subscribe (SubscribeRequest) returns (SubscribeResponse) {};
+  rpc Unsubscribe (SubscribeRequest) returns (SubscribeRequest) {};
+  rpc StreamNotifications (stream NotificationRequest) returns (stream NotificationAck) {};
+}
+
+enum SubscribeTopic {
+  TOPIC_UNSPECIFIED = 0;
+  TOPIC_EARTHQUAKES = 1;
+}
+
+message SubscribeRequest {
+  SubscribeTopic topic = 1;
+  string callback = 2;
+}
+
+message SubscribeResponse {}
+
+message NotificationRequest {
+  string topic = 1;
+  string payload = 2;
+}
+
+message NotificationAck {
+  string subscriber_id = 1;
+  bool received = 2;
+}

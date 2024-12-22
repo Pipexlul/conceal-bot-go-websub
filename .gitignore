@@ -81,3 +81,4 @@ go.work.sum
 # env file
 .env
 
+/vendor/
